@@ -1,3 +1,13 @@
+import os
+
+# Dynamically grab a list of the available resource files
+RESOURCE_FILE_PATH = os.getcwd() + os.path.sep + "Resource"
+RESOURCE_FILES = [RESOURCE_FILE_PATH + os.path.sep + FILE for FILE in os.listdir(RESOURCE_FILE_PATH)]
+
+# Define output directory for encoded data
+OUTPUT_FILE_PATH = os.getcwd() + os.path.sep + "Output"
+os.mkdir(OUTPUT_FILE_PATH)
+
 # Encode using LZW algorithm
 def encode(data):
     """Compress the given string into a list of output symbols"""
@@ -20,7 +30,7 @@ def encode(data):
     if string in dictionary:
         compressed.append(dictionary[string])
     
-    return compressed
+    # Output
 
 # Decode using LZW algorithm
 def decode(data):
@@ -46,10 +56,7 @@ def decode(data):
     return decompressed
 
 def main():
-    data = encode("ABABBABBB")
-    print(data)
-    data = decode(data)
-    print(data)
+    pass
 
 if __name__ == '__main__':
     main()
