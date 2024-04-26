@@ -20,14 +20,36 @@ def encode(data):
     if string in dictionary:
         compressed.append(dictionary[string])
     
-    print(compressed)
+    return compressed
 
 # Decode using LZW algorithm
 def decode(data):
-    pass
+    # Initialise variables
+    next_code = 256
+    decompressed = ""
+    string = ""
+
+    # Build the dictionary
+    dictionary_size = 256
+    dictionary = {x: chr(x) for x in range(dictionary_size)}
+
+    # Iterate through the codes
+    for code in data:
+        if not (code in dictionary):
+            dictionary[code] = string + string[0]
+        decompressed += dictionary[code]
+        if not (len(string) == 0):
+            dictionary[next_code] = string + dictionary[code][0]
+            next_code += 1
+        string = dictionary[code]
+    
+    return decompressed
 
 def main():
-    encode("ABABBABBB")
+    data = encode("ABABBABBB")
+    print(data)
+    data = decode(data)
+    print(data)
 
 if __name__ == '__main__':
     main()
